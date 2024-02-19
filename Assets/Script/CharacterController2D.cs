@@ -34,33 +34,45 @@ public class CharacterController2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        /*
-        bool wasGrounded = m_Grounded;
-        m_Grounded = false;
+        ////bool wasGrounded = m_Grounded;
+        ////m_Grounded = false;
 
-        // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
-        // This can be done using layers instead but Sample Assets will not overwrite your project settings.
+        //// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
+        //// This can be done using layers instead but Sample Assets will not overwrite your project settings.
+        //Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+        //for (int i = 0; i < colliders.Length; i++)
+        //{
+        //    if (colliders[i].gameObject != gameObject)
+        //    {
+        //        //Debug.Log(wasGrounded);
+        //        m_Grounded = true;
+        //        OnLandEvent.Invoke();
+        //        //Debug.Log(m_Grounded);
+        //        //if (!wasGrounded)
+        //        //    OnLandEvent.Invoke();
+        //    }
+        //}
+    }
+
+    private void Update()
+    {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].gameObject != gameObject)
             {
-                Debug.Log(wasGrounded);
+                //Debug.Log(wasGrounded);
                 m_Grounded = true;
-                Debug.Log(m_Grounded);
-                if (!wasGrounded)
-                    OnLandEvent.Invoke();
+                OnLandEvent.Invoke();
+                //Debug.Log(m_Grounded);
+                //if (!wasGrounded)
+                //    OnLandEvent.Invoke();
             }
         }
-        */
     }
-
 
     public void Move(float move,bool jump)
     {
-
-
-   
         if (m_Grounded || m_AirControl)
         {     
             Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);

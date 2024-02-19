@@ -5,96 +5,74 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public Rigidbody2D myRigidbody;
-    public Animator animator;
-    public float xdirection;
-    public float xspeed;
-    public float maxSpeed;
+    public float jumpForce = 700.0f;
+    public float speed = 10.0f;
 
-    public float accel;
-    public float friction;
-    public float jumpForce;
+    private float horizontalMovement;
+    private bool jump = false;
+    private bool facingLeft = false;
+    private bool m_Grounded = false;
 
-    public bool isFacingLeft;
-    Vector2 facingRight;
-    Vector2 facingLeft;
-
-    [SerializeField] private Transform m_GroundCheck;
+    private BoxCollider2D m_BoxCollider2D;
+    private SpriteRenderer m_SpriteRenderer;
+    private Animator m_Animator;
+    private Rigidbody2D m_Rigidbody;
+    [SerializeField] private LayerMask m_Platform;
     // Start is called before the first frame update
     void Start()
     {
-        myRigidbody = GetComponent<Rigidbody2D>();
-        accel = 1.5f;
-        maxSpeed = 10f;
-        friction = 1.5f;
-        facingLeft = new Vector2(-transform.localScale.x, transform.localScale.y);
-        facingRight = new Vector2(transform.localScale.x, transform.localScale.y);
-        isFacingLeft = false;
-
+        m_Rigidbody = GetComponent<Rigidbody2D>();
+        m_Animator = GetComponent<Animator>();
+        m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        m_BoxCollider2D = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        Flip();
+        horizontalMovement = Input.GetAxisRaw("Horizontal");
+        m_Animator.SetFloat("Speed", Mathf.Abs(horizontalMovement));
+
+        float extraHeightText = 0.5f;
+        RaycastHit2D raycastHit = Physics2D.BoxCast(m_BoxCollider2D.bounds.center, m_BoxCollider2D.bounds.size, 0f, Vector2.down, extraHeightText, m_Platform);
+        if (raycastHit.collider != null)
         {
-            xdirection = -1;
-        }
-        else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-        {
-            xdirection = 1;
+            m_Grounded = true;
+            m_Animator.SetBool("isJumping", false);
         }
         else
         {
-            xdirection = 0;
-        }
-        if (xspeed < maxSpeed && (maxSpeed * -1) < xspeed && xdirection != 0)
-        {
-            xspeed += (xdirection * accel);
-            if(xspeed > 0 && isFacingLeft)
-            {
-                Flip() ;
-            }
-            if(xspeed < 0 && !isFacingLeft)
-            {
-                
-                Flip();
-            }
+            m_Grounded = false;
+            m_Animator.SetBool("isJumping", true);
         }
 
-        if (xdirection == 0)
+        if (Input.GetKeyDown(KeyCode.Space) && m_Grounded)
         {
-            if (xspeed > 0)
-            {
-                xspeed -= friction;
-            }
-            if (xspeed < 0)
-            {
-                xspeed += friction;
-            }
+            jump = true;
         }
-        animator.SetFloat("Speed", Mathf.Abs(xspeed));
-        myRigidbody.velocity = new Vector2(xspeed, myRigidbody.velocity.y);
     }
 
     private void FixedUpdate()
     {
-        
-        if (Input.GetKey(KeyCode.W))
+        m_Rigidbody.velocity = new Vector2(horizontalMovement * speed, m_Rigidbody.velocity.y);
+        if (jump)
         {
-            myRigidbody.AddForce(new Vector2(myRigidbody.velocity.x, jumpForce));
-
+            m_Rigidbody.AddForce(new Vector2(0, jumpForce));
+            jump = false;
         }
-
     }
 
     void Flip()
     {
-        isFacingLeft = !isFacingLeft;
-
-        // Multiply the player's x local scale by -1.
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+        if (horizontalMovement < 0)
+        {
+            facingLeft = true;
+        } 
+        else if (horizontalMovement > 0)
+        {
+            facingLeft = false;
+        }
+        m_SpriteRenderer.flipX = facingLeft;
     }
 }
