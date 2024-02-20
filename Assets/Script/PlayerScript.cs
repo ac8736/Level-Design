@@ -75,4 +75,8 @@ public class PlayerScript : MonoBehaviour
         }
         m_SpriteRenderer.flipX = facingLeft;
     }
+    public bool isGround()
+    {
+        return m_Grounded;
+    }
 }
