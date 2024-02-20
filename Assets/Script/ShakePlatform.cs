@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEditor.Presets;
 using UnityEngine;
@@ -7,7 +8,8 @@ using UnityEngine;
 public class ShakePlatform : MonoBehaviour
 {
     // Start is called before the first frame update
-    private List<Collider2D> m_Colliders = new List<Collider2D>();
+    private List<Collision2D> m_Colliders = new List<Collision2D>();
+    public GameObject m_platform;
     private PlayerScript playerScript;
     Vector3 startingPos;
     Vector3 randomPos;
@@ -21,7 +23,7 @@ public class ShakePlatform : MonoBehaviour
     void Start()
     {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
-        startingPos = transform.parent.position;
+        startingPos = m_platform.transform.position;
         pressed = false;
         isCoroutineReady = true;
     }
@@ -38,18 +40,22 @@ public class ShakePlatform : MonoBehaviour
                 StartCoroutine(Shake());
             }
             
-        }else
+        }
+        /*
+        else
         {
             isCoroutineReady = true;
             StopAllCoroutines();
-        }
+            m_platform.transform.position = startingPos;
+        }*/
 
         if (m_Colliders.Count == 0)
         {
             pressed = false;
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if ((collision.gameObject.CompareTag("Player") && playerScript.isGround()) || collision.gameObject.CompareTag("Box"))
         {
@@ -57,8 +63,7 @@ public class ShakePlatform : MonoBehaviour
             m_Colliders.Add(collision);
         }
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Box"))
         {
@@ -75,11 +80,13 @@ public class ShakePlatform : MonoBehaviour
         while(Time.time < whenDone)
         {
             randomPos = startingPos + (Random.insideUnitSphere * _distance);
-            transform.parent.position = randomPos;
+            m_platform.transform.position = randomPos;
             yield return null;
         }
-        transform.parent.position = startingPos;
-        transform.parent.gameObject.SetActive(false);
+        m_platform.transform.position = startingPos;
+        m_platform.GetComponent<Rigidbody2D>().gravityScale = 3f;
+        gameObject.SetActive(false);
+        //transform.parent.gameObject.SetActive(false);
         isCoroutineReady = true;
         
     }
