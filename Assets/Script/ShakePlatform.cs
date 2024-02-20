@@ -8,7 +8,7 @@ public class ShakePlatform : MonoBehaviour
 {
     // Start is called before the first frame update
     private List<Collider2D> m_Colliders = new List<Collider2D>();
-    public PlayerScript playerScript;
+    private PlayerScript playerScript;
     Vector3 startingPos;
     Vector3 randomPos;
     bool pressed;
@@ -20,6 +20,7 @@ public class ShakePlatform : MonoBehaviour
 
     void Start()
     {
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
         startingPos = transform.parent.position;
         pressed = false;
         isCoroutineReady = true;
