@@ -17,7 +17,6 @@ public class ShakePlatform : MonoBehaviour
     public float _distance = 0.1f;
 
     public float shakeTime = 3f;
-    float timer = 0;
 
     void Start()
     {

@@ -8,11 +8,13 @@ public class PressurePlate : MonoBehaviour
 
     private List<Collision2D> m_Colliders = new List<Collision2D>();
     private SpriteRenderer spriteRenderer;
+    Color originalColor;
 
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
     }
 
     // Update is called once per frame
@@ -24,7 +26,7 @@ public class PressurePlate : MonoBehaviour
         }
         else
         {
-            spriteRenderer.color = Color.white;
+            spriteRenderer.color = originalColor;
         }
 
         if (m_Colliders.Count == 0)
