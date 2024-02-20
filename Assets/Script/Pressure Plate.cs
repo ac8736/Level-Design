@@ -6,8 +6,9 @@ public class PressurePlate : MonoBehaviour
 {
     public bool pressed = false;
 
-    private List<Collision2D> m_Colliders = new List<Collision2D>();
+    private readonly List<Collision2D> m_Colliders = new List<Collision2D>();
     private SpriteRenderer spriteRenderer;
+    private Animator m_Animator;
     Color originalColor;
 
     // Start is called before the first frame update
@@ -15,6 +16,7 @@ public class PressurePlate : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+        m_Animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -22,11 +24,11 @@ public class PressurePlate : MonoBehaviour
     {
         if (pressed)
         {
-            spriteRenderer.color = Color.red;
+            m_Animator.SetBool("Pressed", true);
         }
         else
         {
-            spriteRenderer.color = originalColor;
+            m_Animator.SetBool("Pressed", false);
         }
 
         if (m_Colliders.Count == 0)
@@ -41,6 +43,7 @@ public class PressurePlate : MonoBehaviour
         {
             pressed = true;
             m_Colliders.Add(collision);
+            collision.gameObject.transform.parent = transform;
         }
     }
     
@@ -50,6 +53,7 @@ public class PressurePlate : MonoBehaviour
         {
             if (m_Colliders.Contains(collision))
             {
+                collision.gameObject.transform.parent = null;
                 m_Colliders.Remove(collision);
             }
         }
