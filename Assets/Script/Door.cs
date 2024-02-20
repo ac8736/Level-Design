@@ -29,11 +29,18 @@ public class Door : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (canOpen && collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene(m_NextScene);
+            if (m_NextScene != "")
+            {
+                SceneManager.LoadScene(m_NextScene);
+            }
+            else
+            {
+                Debug.LogWarning("We didn't add a next scene for the door!");
+            }
         }
     }
 
