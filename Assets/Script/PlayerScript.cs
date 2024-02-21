@@ -6,13 +6,15 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     public float jumpForce = 700.0f;
+    public bool facingLeft = false;
     public float speed = 10.0f;
 
+    private bool isCarrying = false;
     private float horizontalMovement;
     private bool jump = false;
-    private bool facingLeft = false;
     private bool m_Grounded = false;
 
+    private GameObject m_HeldCrate;
     private BoxCollider2D m_BoxCollider2D;
     private SpriteRenderer m_SpriteRenderer;
     private Animator m_Animator;
@@ -50,6 +52,43 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && m_Grounded)
         {
             jump = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!isCarrying)
+            {
+                Vector2 direction;
+                if (facingLeft)
+                    direction = Vector2.left;
+                else
+                    direction = Vector2.right;
+                RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, 1.5f);
+                // Debug.DrawRay(transform.position, direction, Color.red);
+                foreach (RaycastHit2D hit in hits)
+                {
+                    if (hit.collider.gameObject.CompareTag("Box"))
+                    {
+                        hit.collider.gameObject.transform.parent = transform;
+                        hit.collider.gameObject.transform.position = transform.GetChild(0).position;
+                        hit.collider.gameObject.GetComponent<Crate>().isBeingCarried = true;
+                        isCarrying = true;
+                        m_HeldCrate = hit.collider.gameObject;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                isCarrying = false;
+                m_HeldCrate.GetComponent<Crate>().isBeingCarried = false;
+                if (facingLeft)
+                    m_HeldCrate.transform.position = transform.GetChild(1).position;
+                else
+                    m_HeldCrate.transform.position = transform.GetChild(2).position;
+                m_HeldCrate.transform.parent = null;
+                m_HeldCrate = null;
+            }
         }
     }
 
