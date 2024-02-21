@@ -93,10 +93,6 @@ public class PlayerScript : MonoBehaviour
         CheckGameOver();
     }
 
-    private void PlayerMovement()
-    {
-
-    }
 
     private void CheckGameOver()
     {
