@@ -7,6 +7,8 @@ public class PlayerScript : MonoBehaviour
     public float jumpForce = 700.0f;
     public bool facingLeft = false;
     public float speed = 10.0f;
+    public AudioSource runSounds;
+    public AudioSource jumSounds;
 
     private bool isCarrying = false;
     private float horizontalMovement;
@@ -47,6 +49,17 @@ public class PlayerScript : MonoBehaviour
         {
             m_Grounded = false;
             m_Animator.SetBool("isJumping", true);
+        }
+        if (m_Grounded && m_Rigidbody.velocity.x != 0)
+        {
+            if (!runSounds.isPlaying)
+            {
+                runSounds.Play();
+            }
+        }
+        else
+        {
+            runSounds.Stop();
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && m_Grounded)
@@ -114,6 +127,7 @@ public class PlayerScript : MonoBehaviour
             m_Rigidbody.velocity = new Vector2(horizontalMovement * speed, m_Rigidbody.velocity.y);
             if (jump)
             {
+                jumSounds.Play();
                 m_Rigidbody.AddForce(new Vector2(0, jumpForce));
                 jump = false;
             }
@@ -122,6 +136,7 @@ public class PlayerScript : MonoBehaviour
         {
             m_Rigidbody.velocity = Vector2.zero;
         }
+
 
     }
 
