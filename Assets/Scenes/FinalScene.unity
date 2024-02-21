@@ -258,7 +258,6 @@ GameObject:
   - component: {fileID: 66879659}
   - component: {fileID: 66879662}
   - component: {fileID: 66879661}
-  - component: {fileID: 66879660}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -285,18 +284,6 @@ RectTransform:
   m_AnchoredPosition: {x: -480.27, y: -273.61}
   m_SizeDelta: {x: 851.8788, y: 173.1234}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &66879660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 66879658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00535cb04b6b9884c855c307f964e148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &66879661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,7 +439,6 @@ GameObject:
   - component: {fileID: 387485901}
   - component: {fileID: 387485900}
   - component: {fileID: 387485899}
-  - component: {fileID: 387485903}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -534,19 +520,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &387485903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 387485898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e875e025b03d3764d89939f9ac5a11d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Offset: {x: 7, y: 8.1, z: -1}
 --- !u!4 &452485217 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1543372330607003596, guid: 88a7161f26e4d954aa34268b8bbe353e, type: 3}
@@ -563,7 +536,6 @@ GameObject:
   - component: {fileID: 588939328}
   - component: {fileID: 588939331}
   - component: {fileID: 588939330}
-  - component: {fileID: 588939329}
   m_Layer: 5
   m_Name: GameOver
   m_TagString: Untagged
@@ -590,18 +562,6 @@ RectTransform:
   m_AnchoredPosition: {x: -480.46, y: -271.64}
   m_SizeDelta: {x: 487.869, y: 173.1234}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &588939329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 588939327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00535cb04b6b9884c855c307f964e148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &588939330
 MonoBehaviour:
   m_ObjectHideFlags: 0
