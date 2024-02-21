@@ -81,7 +81,9 @@ public class ShakePlatform : MonoBehaviour
             yield return null;
         }
         m_platform.transform.position = startingPos;
-        m_platform.GetComponent<Rigidbody2D>().gravityScale = 3f;
+        m_platform.GetComponent<BoxCollider2D>().enabled = false;
+        Rigidbody2D platfromrb = m_platform.AddComponent<Rigidbody2D>();
+        platfromrb.gravityScale = 3f;
         gameObject.SetActive(false);
         //transform.parent.gameObject.SetActive(false);
         isCoroutineReady = true;
