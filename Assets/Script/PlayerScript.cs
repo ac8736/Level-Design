@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     private float horizontalMovement;
     private bool jump = false;
     private bool m_Grounded = false;
+    private bool m_gameOver = false;
 
     private GameObject m_HeldCrate;
     private BoxCollider2D m_BoxCollider2D;
@@ -89,16 +90,39 @@ public class PlayerScript : MonoBehaviour
                 m_HeldCrate = null;
             }
         }
+        CheckGameOver();
+    }
+
+    private void PlayerMovement()
+    {
+
+    }
+
+    private void CheckGameOver()
+    {
+        if(transform.position.y < -(GameManager.Instance().CameraHeight / 2))
+        {
+            GameManager.Instance().GameOver();
+            m_gameOver=true;
+        }
     }
 
     private void FixedUpdate()
     {
-        m_Rigidbody.velocity = new Vector2(horizontalMovement * speed, m_Rigidbody.velocity.y);
-        if (jump)
+        if (!m_gameOver)
         {
-            m_Rigidbody.AddForce(new Vector2(0, jumpForce));
-            jump = false;
+            m_Rigidbody.velocity = new Vector2(horizontalMovement * speed, m_Rigidbody.velocity.y);
+            if (jump)
+            {
+                m_Rigidbody.AddForce(new Vector2(0, jumpForce));
+                jump = false;
+            }
         }
+        else
+        {
+            m_Rigidbody.velocity = Vector2.zero;
+        }
+
     }
 
     void Flip()
