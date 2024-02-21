@@ -96,11 +96,15 @@ public class PlayerScript : MonoBehaviour
 
     private void CheckGameOver()
     {
-        if(transform.position.y < -(GameManager.Instance().CameraHeight / 2))
+        if(GameManager.Instance() != null)
         {
-            GameManager.Instance().GameOver();
-            m_gameOver=true;
+            if (transform.position.y < -(GameManager.Instance().CameraHeight / 2))
+            {
+                GameManager.Instance().GameOver();
+                m_gameOver = true;
+            }
         }
+
     }
 
     private void FixedUpdate()

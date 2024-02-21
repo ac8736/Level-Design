@@ -54,7 +54,19 @@ public class GameManager : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name != "FinalScene")
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            else
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
         }
+
+       if (SceneManager.GetActiveScene().name == "OpenScene")
+       {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
+        }
+            
+        
     }
 
 
