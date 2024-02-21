@@ -2077,7 +2077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3193396440947491449, guid: b23e0597690873a4ea7f3c17bd1ea5de, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.3
+      value: -11.9
       objectReference: {fileID: 0}
     - target: {fileID: 3193396440947491449, guid: b23e0597690873a4ea7f3c17bd1ea5de, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2975,10 +2975,6 @@ PrefabInstance:
     - target: {fileID: 96464135180758677, guid: 0238bcb84029ef748b6955ecd1cb35da, type: 3}
       propertyPath: m_Name
       value: Pressure Plate
-      objectReference: {fileID: 0}
-    - target: {fileID: 2257412629533749686, guid: 0238bcb84029ef748b6955ecd1cb35da, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 7.0875006
       objectReference: {fileID: 0}
     - target: {fileID: 2257412629533749686, guid: 0238bcb84029ef748b6955ecd1cb35da, type: 3}
       propertyPath: m_LocalPosition.x

@@ -7,16 +7,13 @@ public class PressurePlate : MonoBehaviour
     public bool pressed = false;
 
     private readonly List<Collision2D> m_Colliders = new List<Collision2D>();
-    private SpriteRenderer spriteRenderer;
-    private Animator m_Animator;
-    Color originalColor;
+    private Vector3 m_OriginalPos;
+    private readonly float distance = 0.5f;
 
     // Start is called before the first frame update
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        originalColor = spriteRenderer.color;
-        m_Animator = GetComponent<Animator>();
+        m_OriginalPos = transform.position;
     }
 
     // Update is called once per frame
@@ -24,11 +21,17 @@ public class PressurePlate : MonoBehaviour
     {
         if (pressed)
         {
-            m_Animator.SetBool("Pressed", true);
+            if (Mathf.Abs(transform.position.y - m_OriginalPos.y) < distance)
+            {
+                transform.Translate(0, -0.01f, 0);
+            }
         }
         else
         {
-            m_Animator.SetBool("Pressed", false);
+            if (transform.position.y < m_OriginalPos.y)
+            {
+                transform.Translate(0, 0.01f, 0);
+            }
         }
 
         if (m_Colliders.Count == 0)
